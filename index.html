@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <title>Loja - Mais Bolsas</title>
+</head>
+<body>
+    <header>
+        <i class="bi bi-list"></i>
+        <h1>Dafiti</h1>
+        <div class="menu-items">
+            <i class="bi bi-bag"></i>
+            <i class="bi bi-heart"></i>
+        </div>
+    </header>
+
+    <div class="box">
+        <img src="./image/barcelos-matelasse-verde-1.jpg" alt="">
+        <div class="box-item">
+            <img src="./image/barcelos-matelasse-verde-2.jpg" alt="">
+            <img src="./image/barcelos-matelasse-verde-3.jpg" alt="">
+            <img src="./image/barcelos-matelasse-verde-4.jpg" alt="">
+        </div>
+    </div>
+
+      <div class="box">
+        <img src="./image/barcelos-matelasse-verde-1.jpg" alt="">
+        <div class="box-item">
+            <img src="./image/barcelos-matelasse-verde-2.jpg" alt="">
+            <img src="./image/barcelos-matelasse-verde-3.jpg" alt="">
+            <img src="./image/barcelos-matelasse-verde-4.jpg" alt="">
+        </div>
+    </div>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+         header{
+            gap: 10px;
+            height: 10vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 10px;
+            top: 0;
+            position: sticky;
+            background-color: #fff;
+        }
+        .menu-items{
+            gap: 10px;
+            display: flex;
+            padding-right: 15px;
+        }
+        .bi{
+            font-size: 23px;
+        }
+        .box{
+            width: 100%;
+            height: 90vh;
+            margin-bottom: 10px;
+        }
+        .box img{ 
+            width: 100%;
+            cursor: pointer;
+            transition: all .5s;
+        }
+        .box img:hover{
+            transform: scale(1.1);
+         }
+        .box-item{
+            width: 100%;
+            height: 180px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .box-item img{
+            width: 32%;
+            cursor: pointer;
+            transition: all .5s;
+        }
+        .box-teim img:hover{
+            transform: scale(1.1);
+        }
+       
+        @media (min-width: 1024px) {
+            body{
+                max-width: 1024px;
+                margin: 0 auto;
+            }
+            .box{
+                gap: 10px;
+                display: flex;
+                margin-left: 200px;
+            }
+            .box-item{
+                flex-direction: column;
+                gap: 10px;
+                display: flex;
+                
+            }
+            .box-item img{
+                height: 177px;
+            }
+        }
+    </style>
+</body>
+</html>
