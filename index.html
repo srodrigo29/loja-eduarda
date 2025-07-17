@@ -3,110 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <title>Loja - Mais Bolsas</title>
+    <title>Minha Loja de Sapatos</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Estilos personalizados para o modal */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <i class="bi bi-list"></i>
-        <h1>Dafiti</h1>
-        <div class="menu-items">
-            <i class="bi bi-bag"></i>
-            <i class="bi bi-heart"></i>
+<body class="bg-gray-100 font-sans">
+
+    <header class="bg-white shadow py-4">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-gray-800 text-center">Nossa Coleção de Sapatos</h1>
         </div>
     </header>
 
-    <div class="box">
-        <img src="./image/barcelos-matelasse-verde-1.jpg" alt="">
-        <div class="box-item">
-            <img src="./image/barcelos-matelasse-verde-2.jpg" alt="">
-            <img src="./image/barcelos-matelasse-verde-3.jpg" alt="">
-            <img src="./image/barcelos-matelasse-verde-4.jpg" alt="">
+    <main class="container mx-auto px-4 py-8">
+        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            </div>
+    </main>
+
+    <div id="product-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay">
+        <div class="bg-white rounded-lg p-8 shadow-xl relative modal-content">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold">&times;</button>
+            <h2 id="modal-title" class="text-3xl font-bold text-gray-800 mb-4"></h2>
+            <img id="modal-image" src="" alt="Imagem do Produto" class="w-full h-64 object-cover rounded-lg mb-4">
+            <p id="modal-description" class="text-gray-700 mb-4 text-lg"></p>
+            <p id="modal-price" class="text-2xl font-semibold text-green-600"></p>
         </div>
     </div>
 
-      <div class="box">
-        <img src="./image/barcelos-matelasse-verde-1.jpg" alt="">
-        <div class="box-item">
-            <img src="./image/barcelos-matelasse-verde-2.jpg" alt="">
-            <img src="./image/barcelos-matelasse-verde-3.jpg" alt="">
-            <img src="./image/barcelos-matelasse-verde-4.jpg" alt="">
-        </div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productList = document.getElementById('product-list');
+            const productModal = document.getElementById('product-modal');
+            const closeModalButton = document.getElementById('close-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalImage = document.getElementById('modal-image');
+            const modalDescription = document.getElementById('modal-description');
+            const modalPrice = document.getElementById('modal-price');
 
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-         header{
-            gap: 10px;
-            height: 10vh;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-left: 10px;
-            top: 0;
-            position: sticky;
-            background-color: #fff;
-        }
-        .menu-items{
-            gap: 10px;
-            display: flex;
-            padding-right: 15px;
-        }
-        .bi{
-            font-size: 23px;
-        }
-        .box{
-            width: 100%;
-            height: 90vh;
-            margin-bottom: 10px;
-        }
-        .box img{ 
-            width: 100%;
-            cursor: pointer;
-            transition: all .5s;
-        }
-        .box img:hover{
-            transform: scale(1.1);
-         }
-        .box-item{
-            width: 100%;
-            height: 180px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .box-item img{
-            width: 32%;
-            cursor: pointer;
-            transition: all .5s;
-        }
-        .box-teim img:hover{
-            transform: scale(1.1);
-        }
-       
-        @media (min-width: 1024px) {
-            body{
-                max-width: 1024px;
-                margin: 0 auto;
+            // Dados dos seus sapatos
+            const products = [
+                {
+                    id: 1,
+                    title: 'Sapato Social Elegance',
+                    // Substitua esta URL pela imagem que você quer no seu card
+                    image: 'https://cdn.shoppub.io/cdn-cgi/image/w=1000,h=1000,q=80,f=auto/sandromoscoloni/media/uploads/produtos/foto/iuimcdcg/file.png',
+                    description: 'Clássico e sofisticado, ideal para eventos formais e reuniões de negócios. Couro legítimo e acabamento impecável.',
+                    price: 'R$ 389,00'
+                },
+                {
+                    id: 2,
+                    title: 'Tênis Esportivo Confort',
+                    image: 'https://http2.mlstatic.com/D_NQ_NP_797249-MLB85462705712_062025-O-tenis-actvitta-esportivo-original-feminino-confort-caminhada.webp', // Imagem de exemplo
+                    description: 'Perfeito para corridas e atividades físicas, com amortecimento avançado e design moderno. Leve e respirável para o seu dia a dia.',
+                    price: 'R$ 299,90'
+                },
+                {
+                    id: 3,
+                    title: 'Bota Casual Urbano',
+                    image: 'https://www.bing.com/th?id=OPHS.3ky4aqqjHk3VCg474C474&o=5&pid=21.1&w=148&h=176&qlt=100&dpr=1&o=2&bw=6&bc=FFFFFF', // Imagem de exemplo
+                    description: 'Estilo e conforto para o uso diário. Design robusto e versátil que combina com diversas ocasiões.',
+                    price: 'R$ 249,50'
+                },
+                {
+                    id: 4,
+                    title: 'Sandália Verão Leve',
+                    image: 'https://img.ltwebstatic.com/images3_spmp/2023/10/04/ca/1696362616993539c42b15209430ee577e82712d83_thumbnail_384x.webp', // Imagem de exemplo
+                    description: 'Frescor e liberdade para os dias quentes. Design leve e materiais de alta qualidade para o seu conforto.',
+                    price: 'R$ 129,99'
+                },
+                {
+                    id: 5,
+                    title: 'Sapato Scarpin Clássico',
+                    image: 'https://img.ltwebstatic.com/images3_spmp/2024/08/29/29/1724864263086d802a09d4bedadb599be637c3ce2c_thumbnail_384x.webp', // Imagem de exemplo
+                    description: 'Elegância atemporal para qualquer ocasião. Salto confortável e acabamento refinado para realçar seu look.',
+                    price: 'R$ 185,00'
+                },
+                {
+                    id: 6,
+                    title: 'Tênis Skate Street',
+                    image: 'https://img.ltwebstatic.com/v4/p/spmp/2025/05/31/0a/1748625353c085649db5abfa3adb8c46b1a3114c6a_thumbnail_384x.webp', // Imagem de exemplo
+                    description: 'Durabilidade e estilo para os amantes do skate. Solado resistente e design que acompanha a cultura urbana.',
+                    price: 'R$ 199,90'
+                }
+            ];
+
+            // Função para criar um card de produto
+            function createProductCard(product) {
+                const card = document.createElement('div');
+                card.classList.add(
+                    'bg-white',
+                    'rounded-lg',
+                    'shadow-md',
+                    'overflow-hidden',
+                    'cursor-pointer',
+                    'hover:shadow-lg',
+                    'transition-shadow',
+                    'duration-300'
+                );
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">${product.title}</h3>
+                        <p class="text-gray-600 text-lg font-bold">${product.price}</p>
+                    </div>
+                `;
+                card.addEventListener('click', () => showProductDetails(product));
+                return card;
             }
-            .box{
-                gap: 10px;
-                display: flex;
-                margin-left: 200px;
+
+            // Função para exibir os detalhes do produto no modal
+            function showProductDetails(product) {
+                modalTitle.textContent = product.title;
+                modalImage.src = product.image; // O JS agora irá preencher o src corretamente
+                modalImage.alt = product.title;
+                modalDescription.textContent = product.description;
+                modalPrice.textContent = product.price;
+                productModal.classList.remove('hidden'); // Mostra o modal
             }
-            .box-item{
-                flex-direction: column;
-                gap: 10px;
-                display: flex;
-                
-            }
-            .box-item img{
-                height: 177px;
-            }
-        }
-    </style>
+
+            // Adiciona evento para fechar o modal
+            closeModalButton.addEventListener('click', () => {
+                productModal.classList.add('hidden'); // Esconde o modal
+            });
+
+            // Fecha o modal ao clicar fora dele
+            productModal.addEventListener('click', (event) => {
+                if (event.target === productModal) {
+                    productModal.classList.add('hidden');
+                }
+            });
+
+            // Renderiza todos os produtos
+            products.forEach(product => {
+                productList.appendChild(createProductCard(product));
+            });
+        });
+    </script>
 </body>
 </html>
